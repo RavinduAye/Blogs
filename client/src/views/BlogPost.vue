@@ -1,7 +1,7 @@
 <template>
   <v-main>
     <div class="field-container" @click="postClicked(postId)">
-      <div v-if="!isEdit">Create New</div>
+      <div v-if="!isEdit" class="titile-heading">Create New</div>
       <div class="mt-5">
         <v-text-field
           v-model="model.title"
@@ -12,7 +12,7 @@
           clearable
         ></v-text-field>
       </div>
-      <div class="col-md-12">
+      <div>
         <v-textarea
           v-model="model.content"
           label="Content"
@@ -26,17 +26,15 @@
         <div v-if="isEdit">
           <v-btn
             class="btn"
-            color="blue"
             :disabled="!model.title || !model.content"
             @click="save"
             >Save</v-btn
           >
-          <v-btn class="btn" color="#ff6347" @click="cancel">Cancel</v-btn>
+          <v-btn class="cancel-btn" color="#ff6347" @click="cancel">Cancel</v-btn>
         </div>
         <div v-else>
           <v-btn
             class="btn"
-            color="blue"
             :disabled="!model.title || !model.content"
             @click="publish"
             >Publish</v-btn
@@ -150,15 +148,33 @@ export default {
   display: flex;
   justify-content: right;
 }
-
-.btn {
+.cancel-btn{
   margin-left: 20px;
   color: #fff;
+  width: 150px;
+  height: 45px !important;
 }
+
+.btn {
+  width: 150px;
+  height: 45px !important;
+  margin-left: 20px;
+  color: #fff;
+  background: linear-gradient(to right, #8e2de2, #4a00e0);
+}
+
+
 
 ::v-deep .v-main__wrap{
   display: flex;
   justify-content: center;
+}
+
+.titile-heading{
+  margin-bottom: 3%;
+  color: #01BF71;
+  font-size: 36px;
+  font-weight: 600;
 }
 
 </style>

@@ -103,7 +103,7 @@ export default {
 }
 
 .app-bar {
-  background: linear-gradient(to right, #8e2de2, #4a00e0);;
+  background: linear-gradient(to right, #8e2de2, #4a00e0);
   height: 80px;
   display: flex;
   justify-content: right;
