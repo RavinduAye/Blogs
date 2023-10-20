@@ -1,5 +1,8 @@
 <template>
-  <div :class="!showButton ? 'blog-container' : 'blog-view'" @click="postClicked(blog.id)">
+  <div
+    :class="!showButton ? 'blog-container' : 'blog-view'"
+    @click="postClicked(blog.id)"
+  >
     <div v-if="!editMode">
       <div class="blog-image-container col-md-12">
         <img class="img" :src="image" />
@@ -13,7 +16,7 @@
       </div>
       <div v-else class="blog-content-container col-md-12">
         <div class="blog-content">
-          {{ blog.content | truncate(300, "...") }}
+          {{ blog.content }}
         </div>
       </div>
       <div class="col-md-12 button-container" v-if="showButton">
@@ -62,7 +65,7 @@ export default {
     },
     showButton: {
       type: Boolean,
-      required: true,
+      default: true,
     },
   },
 
@@ -82,10 +85,12 @@ export default {
   methods: {
     postClicked(id) {
       console.log(id);
-      this.$router.push({
-        name: "Blog",
-        params: { id: id },
-      });
+      if (!this.showButton) {
+        this.$router.push({
+          name: "Blog",
+          params: { id: id },
+        });
+      }
     },
 
     getBlogData() {
@@ -138,7 +143,7 @@ export default {
   cursor: pointer;
 }
 
-.blog-view{
+.blog-view {
   width: 70%;
 }
 
@@ -168,7 +173,7 @@ export default {
 }
 
 .blog-container:hover {
-    box-shadow: 0.625rem 0.625rem 0.6875rem rgba(142, 202, 230, 0.0588235294);
+  box-shadow: 0.625rem 0.625rem 0.6875rem rgba(142, 202, 230, 0.0588235294);
 }
 
 .button-container {

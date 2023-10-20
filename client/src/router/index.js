@@ -21,7 +21,7 @@ const routes = [
     component: () => import('../components/User/RegisterPage.vue')
   },
   {
-    path: '/blog/:id',
+    path: 'blog/:id',
     name: 'Blog',
     component: () => import('../components/BlogPostView.vue')
   }

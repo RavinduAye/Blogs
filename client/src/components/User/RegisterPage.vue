@@ -58,14 +58,12 @@
           </v-btn>
 
           <v-card-text class="text-center">
-            <a
-              class="text-blue text-decoration-none"
-              href="#"
-              rel="noopener noreferrer"
-              target="_blank"
+            <div
+              class="text-decoration-none"
             >
-              Log in now
-            </a>
+              Already Registered?
+              <a href="/login" class="login-link">Log In</a>
+            </div>
           </v-card-text>
         </v-card>
       </v-col>
@@ -110,6 +108,17 @@ export default {
 .btn{
     background-color: aqua !important;
     color: #fff;
+}
+
+.login-link {
+  color: blueviolet !important;
+  a {
+    color: blueviolet !important;
+  }
+}
+
+.login-link:hover {
+  text-decoration: underline;
 }
 
 </style>

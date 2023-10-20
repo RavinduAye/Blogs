@@ -26,14 +26,12 @@
           </v-btn>
 
           <v-card-text class="text-center">
-            <a
-              class="text-blue text-decoration-none"
-              href="#"
-              rel="noopener noreferrer"
-              target="_blank"
+            <div
+              class="text-decoration-none"
             >
-              Sign up now
-            </a>
+              New User? 
+              <a href="/register">Log In</a>
+            </div>
           </v-card-text>
         </v-card>
       </v-col>
