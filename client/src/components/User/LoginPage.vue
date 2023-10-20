@@ -6,12 +6,14 @@
         <v-card class="field-container">
           <h3 class="headline">Login</h3>
           <v-text-field
+            v-model="model.email"
             density="compact"
             placeholder="Email address"
             prepend-inner-icon="mdi-email-outline"
             outlined
           ></v-text-field>
           <v-text-field
+            v-model="model.password"
             type="password"
             density="compact"
             placeholder="Enter your password"
@@ -20,6 +22,7 @@
           ></v-text-field>
           <button
             class="button"
+            @click="login"
           >
             Log In
           </button>
@@ -39,12 +42,41 @@
 </template>
 
 <script>
+import axios from "axios";
 
 export default {
   title: "LoginPage",
   data: () => ({
     image: require(`../../assets/blogImage4.jpg`),
+    model: {
+      email: null,
+      password: null
+    }
   }),
+
+  methods : {
+    login(){
+      if (
+        !this.model.email ||
+        !this.model.password
+      ) {
+        return;
+      }
+
+      const data = {
+        email: this.model.email,
+        password: this.model.password
+      }
+      axios
+        .post(`/api/login`, data)
+        .then(() => {
+          console.log("logged successfully");
+        })
+        .catch(() => {
+          console.log("Something went wrong");
+        });
+    }
+  }
 };
 
 </script>
