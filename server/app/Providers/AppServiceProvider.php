@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\Blog\BlogRepository;
 use App\Repositories\Blog\BlogRepositoryInterface;
+use App\Repositories\User\UserRepository;
+use App\Repositories\User\UserRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,11 +18,17 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerBlogRepository();
+        $this->registerUserRepository();
     }
 
     public function registerBlogRepository()
     {
         $this->app->bind(BlogRepositoryInterface::class, BlogRepository::class);
+    }
+
+    public function registerUserRepository()
+    {
+        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
     }
 
     /**
