@@ -1,27 +1,16 @@
-<template>
-  <div id="app">
-    <blog-post/>
+<template>  <div id="app">
+    <router-view/>
   </div>
 </template>
 
-<script>
-import BlogPost from './components/BlogPost.vue'
+<style lang="scss">
 
-export default {
-  name: 'App',
-  components: {
-    BlogPost
-  }
-}
-</script>
-
-<style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
+
 </style>
