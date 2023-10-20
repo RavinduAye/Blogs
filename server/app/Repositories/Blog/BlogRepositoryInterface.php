@@ -12,5 +12,7 @@ interface BlogRepositoryInterface
 
     public function delete($postId);
 
-    public function getBlogs();
+    public function getOwnerBlogs($createdBy);
+
+    public function getPublicBlogs();
 }

@@ -26,7 +26,12 @@ class BlogRepository implements BlogRepositoryInterface
         return BlogPost::where('id', $postId)->delete();
     }
 
-    public function getBlogs()
+    public function getOwnerBlogs($userId)
+    {
+        return BlogPost::where('created_by',$userId)->get();
+    }
+
+    public function getPublicBlogs()
     {
         return BlogPost::all();
     }

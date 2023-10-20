@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,13 +14,17 @@ use App\Http\Controllers\BlogController;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
-*/
+ */
 
+Route::group(
+    ['middleware' => 'auth:api'],
+    function () {
+        Route::group(['middleware' => 'is.blogOwner'], function () {
+            Route::post('blog/new', [BlogController::class, 'create']);
+            Route::put('blog/{post_id}', [BlogController::class, 'update']);
+            Route::delete('blog/{post_id}', [BlogController::class, 'delete']);
+        });
+        Route::get('blogs/{user_id}', [BlogController::class, 'getOwnerBlogs'])->middleware('is.user');
+    });
 
-Route::group(['middleware' => 'is.blogOwner'], function () {
-    Route::post('blogs/new', [BlogController::class, 'create']);
-    Route::put('blogs/{post_id}', [BlogController::class, 'update']);
-    Route::delete('blogs/{post_id}', [BlogController::class, 'delete']);
-});
-
-Route::get('blogs', [BlogController::class, 'getBlogs']);
+Route::get('blogs', [BlogController::class, 'getPublicBlogs']);

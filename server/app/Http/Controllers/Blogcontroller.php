@@ -80,9 +80,20 @@ class BlogController extends Controller
         }
     }
 
-    public function getBlogs(Request $request): JsonResponse
+    public function getOwnerBlogs(Request $request): JsonResponse
     {
-        $blogs = $this->blogRepository->getBlogs();
+        $userId = $request->route('user_id');
+        $blogs = $this->blogRepository->getOwnerBlogs($userId);
+
+        return response()->json([
+            'blogs' => $blogs
+        ]);
+
+    }
+
+    public function getPublicBlogs(Request $request): JsonResponse
+    {
+        $blogs = $this->blogRepository->getPublicBlogs();
 
         return response()->json([
             'blogs' => $blogs
