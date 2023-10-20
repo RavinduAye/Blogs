@@ -7,18 +7,23 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/home',
-    name: 'home',
+    name: 'Home',
     component: HomePage
   },
   {
     path: '/login',
-    name: 'login',
+    name: 'Login',
     component: () => import('../components/User/LoginPage.vue')
   },
   {
     path: '/register',
-    name: 'register',
+    name: 'Register',
     component: () => import('../components/User/RegisterPage.vue')
+  },
+  {
+    path: '/blog/:id',
+    name: 'Blog',
+    component: () => import('../components/BlogPostView.vue')
   }
 ]
 

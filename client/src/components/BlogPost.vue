@@ -1,13 +1,11 @@
 <template>
-  <div class="field-container">
-    <div v-if="!isEdit">
-      Create New
-    </div>
+  <div class="field-container" @click="postClicked(postId)">
+    <div v-if="!isEdit">Create New</div>
     <div class="mt-5">
       <v-text-field
         v-model="model.title"
         label="Title"
-        maxlength="150"
+        maxlength="255"
         counter
         :rules="[rules.required, rules.titleCounter]"
         clearable
@@ -25,17 +23,32 @@
     </div>
     <div class="button-container">
       <div v-if="isEdit">
-        <v-btn  class="btn" color="blue" :disabled="!model.title || !model.content">Save</v-btn>
+        <v-btn
+          class="btn"
+          color="blue"
+          :disabled="!model.title || !model.content"
+          @click="save"
+          >Save</v-btn
+        >
         <v-btn class="btn" color="#ff6347" @click="cancel">Cancel</v-btn>
       </div>
       <div v-else>
-        <v-btn  class="btn" color="blue" :disabled="!model.title || !model.content">Publish</v-btn>
+        <v-btn
+          class="btn"
+          color="blue"
+          :disabled="!model.title || !model.content"
+          @click="publish"
+          >Publish</v-btn
+        >
       </div>
     </div>
   </div>
 </template>
 
 <script>
+
+import axios from "axios";
+
 export default {
   title: "BlogPost",
   data: () => ({
@@ -44,12 +57,12 @@ export default {
     },
     loading: false,
     model: {
-      title: '',
-      content: ''
+      title: "",
+      content: "",
     },
     rules: {
       required: (value) => !!value || "This field is Required.",
-      titleCounter: (value) => value.length <= 150 || "Max 150 characters",
+      titleCounter: (value) => value.length <= 255 || "Max 255 characters",
       contentCounter: (value) => value.length <= 1000 || "Max 1000 characters",
     },
   }),
@@ -57,42 +70,67 @@ export default {
   props: {
     title: {
       type: String,
-      default: '',
+      default: "",
     },
     content: {
       type: String,
-      default: '',
+      default: "",
     },
-    isEdit:{
+    isEdit: {
       type: Boolean,
       default: false,
-    }
+    },
   },
 
   mounted() {
-    this.model.title = this.title;
-    this.model.content = this.content;
+      this.model.title = this.title;
+      this.model.content = this.content;
   },
 
   methods: {
-    save(){
-        const data = {
-            title : this.model.title,
-            content : this.model.content
-        }
 
-        console.log(data);
+    postClicked(id){
+      console.log(id);
     },
 
-    cancel(){
-      this.$emit('edit-post', false);
-    }
+    publish(){
+      const data = {
+        title: this.model.title,
+        content: this.model.content,
+      };
+      axios
+        .post(`/api/blog`, data)
+        .then(() => {
+          console.log("Blog published successfully");
+        })
+        .catch(() => {
+          console.log("Something went wrong");
+        });
+    },
+
+    save() {
+      const data = {
+        title: this.model.title,
+        content: this.model.content,
+      };
+      axios
+        .put(`/blog/${this.blog.id}`, data)
+        .then(() => {
+          console.log("Blog updated successfully");
+        })
+        .catch(() => {
+          console.log("Something went wrong");
+        });
+    },
+
+    cancel() {
+      this.$emit("edit-post", false);
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-
 .field-container {
   transition: box-shadow 0.3s;
   background-color: #fff;
@@ -111,10 +149,8 @@ export default {
   justify-content: right;
 }
 
-.btn{
-    margin-left: 20px;
-    color: #fff;
+.btn {
+  margin-left: 20px;
+  color: #fff;
 }
-
-
 </style>
