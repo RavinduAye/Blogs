@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,15 +17,22 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
+
 Route::group(
     ['middleware' => 'auth:api'],
     function () {
         Route::group(['middleware' => 'is.blogOwner'], function () {
-            Route::post('blog/new', [BlogController::class, 'create']);
             Route::put('blog/{post_id}', [BlogController::class, 'update']);
             Route::delete('blog/{post_id}', [BlogController::class, 'delete']);
         });
+        Route::post('blog/new', [BlogController::class, 'create']);
         Route::get('blogs/{user_id}', [BlogController::class, 'getOwnerBlogs'])->middleware('is.user');
     });
 
-Route::get('blogs', [BlogController::class, 'getPublicBlogs']);
+// get public posts endpoint
+Route::get('/blogs', [BlogController::class, 'getPublicBlogs']);
+
+// login and register endpoints
+Route::post('login', [UserController::class, 'login']);
+Route::post('register', [UserController::class, 'register']);
+

@@ -10,4 +10,10 @@ class UserRepository implements UserRepositoryInterface
     {
         return User::create($userData);
     }
+
+    public function createToken($user)
+    {
+        return $user->createToken('MyApp')->accessToken;
+    }
+
 }

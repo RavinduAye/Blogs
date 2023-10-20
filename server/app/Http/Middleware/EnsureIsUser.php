@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
-use App\Models\User;
 
 class EnsureIsUser
 {
@@ -18,14 +18,21 @@ class EnsureIsUser
     public function handle(Request $request, Closure $next)
     {
         $userId = $request->route('user_id');
-        $isExist = User::find($userId);
-        
-        if($isExist){
-            return $next($request);
+        if ($userId) {
+            $isExist = User::find($userId);
+            if ($isExist) {
+                return $next($request);
+            }
         } else {
-            return response()->json([
-                'message' => 'User not found'
-            ], 404);
+            $email = $request->email;
+            $isExist = User::where('email', $email)->first();
+            if ($isExist) {
+                return $next($request);
+            }
         }
+        
+        return response()->json([
+            'message' => 'User not found',
+        ], 404);
     }
 }
