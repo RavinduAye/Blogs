@@ -10,8 +10,9 @@
         <v-carousel-item
           v-for="(item, i) in items"
           :key="i"
-          :src="item.src"
-        ></v-carousel-item>
+        >
+         <v-img class="image-cover" :src="item.src"></v-img>
+        </v-carousel-item>
       </div>
     </v-carousel>
   </div>
@@ -23,14 +24,23 @@ export default {
   data: () => ({
     items: [
       {
-        src: require(`../assets/blogImage2.jpg`),
+        src: require(`../assets/blogImage1.jpg`),
       },
       {
-        src: require(`../assets/blogImage3.jpg`),
-      },
+        src: require(`../assets/blogImage4.jpg`),
+      }
     ],
   }),
 
   methods: {},
 };
 </script>
+
+<style lang="scss" scoped>
+.image-cover {
+  pointer-events: none;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+</style>

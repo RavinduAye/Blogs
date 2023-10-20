@@ -1,29 +1,26 @@
 <template>
-  <v-app>
-    <v-main>
-      <carousel-slide />
-    </v-main>
-    <blog-list/>
-  </v-app>
+  <v-app-bar
+    app
+    dark
+    class="app-bar"
+  >
+    <template>
+      <div class="app-bar-container">
+        <div v-if="auth.user">
+          <v-btn class="btn" href="/home">Home</v-btn>
+          <v-btn class="btn" href="/new_post">Write</v-btn>
+        </div>
+        <div v-else>
+          <v-btn class="btn" href="/login">Sign in</v-btn>
+        </div>
+      </div>
+    </template>
+  </v-app-bar>
 </template>
 
 <script>
-// import BlogPost from "../components/BlogPost.vue";
-// import BlogPostView from "../components/BlogPostView.vue";
-import CarouselSlide from "../components/CarouselSlide.vue";
-import axios from "axios";
-import BlogList from '../views/BlogList.vue';
-
 export default {
-  name: "HomePage",
-
-  components: {
-    // BlogPostView,
-    CarouselSlide,
-    // BlogPost,
-    BlogList,
-  },
-
+  name: "AppBar",
   data: () => ({
     currentItem: "home",
     auth: {
@@ -76,35 +73,45 @@ export default {
       },
     ],
   }),
-
-  mounted() {},
-
-  methods: {
-    getBlogs() {
-      if (this.auth.user) {
-        axios
-          .get(`/api/owner/blog/${this.auth.user.id}`)
-          .then((response) => {
-            this.blogs = response.data.blogs;
-          })
-          .catch(() => {
-            console.log("Something went wrong");
-          });
-      } else {
-        axios
-          .get(`/api/blogs`)
-          .then((response) => {
-            this.blogs = response.data.blogs;
-          })
-          .catch(() => {
-            console.log("Something went wrong");
-          });
-      }
-    },
-  },
 };
 </script>
 
 <style lang="scss" scoped>
+
+.btn{
+    background-color: unset !important;
+    box-shadow: none;
+}
+
+.btn {
+  border-radius: 50px;
+  background: white;
+  white-space: nowrap;
+  padding: 10px 22px;
+  color: linear-gradient(to right, #8e2de2, #4a00e0);;
+  font-size: 16px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #8e2de2;
+  color: #fff;
+}
+
+.app-bar {
+  background: linear-gradient(to right, #8e2de2, #4a00e0);;
+  height: 80px;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  font-size: 1rem;
+  top: 0;
+  z-index: 10;
+}
+
 
 </style>

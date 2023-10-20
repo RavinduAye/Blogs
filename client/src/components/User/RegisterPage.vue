@@ -4,7 +4,7 @@
       <v-col class="img"  cols="6"/>
       <v-col cols="6" class="form-container">
         <v-card class="field-container">
-          <h3 class="text-subtitle-1 text-medium-emphasis">Register</h3>
+          <h3 class="headline">Register</h3>
           <v-row>
             <v-col>
                 <v-text-field
@@ -50,12 +50,11 @@
             outlined
             required
           ></v-text-field>
-          <v-btn
-            block
-            class="mb-3 mt-5 btn"
+          <button
+            class="button"
           >
             Sign Up
-          </v-btn>
+          </button>
 
           <v-card-text class="text-center">
             <div
@@ -87,6 +86,12 @@ export default {
 
 <style lang="scss" scoped>
 
+.headline{
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 36px;
+}
+
 .img{
   background: url(../../assets/blogImage4.jpg);
   background-repeat: no-repeat;
@@ -105,9 +110,21 @@ export default {
   box-shadow: unset !important;
 }
 
-.btn{
-    background-color: aqua !important;
-    color: #fff;
+.button{
+  border-radius: 50px;
+  background: linear-gradient(to right, #8e2de2, #4a00e0);;
+  white-space: nowrap;
+  padding: 10px 22px;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  width: 100%;
+  height: 50px;
+  text-align: center;
 }
 
 .login-link {

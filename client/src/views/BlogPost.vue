@@ -1,48 +1,50 @@
 <template>
-  <div class="field-container" @click="postClicked(postId)">
-    <div v-if="!isEdit">Create New</div>
-    <div class="mt-5">
-      <v-text-field
-        v-model="model.title"
-        label="Title"
-        maxlength="255"
-        counter
-        :rules="[rules.required, rules.titleCounter]"
-        clearable
-      ></v-text-field>
-    </div>
-    <div class="col-md-12">
-      <v-textarea
-        v-model="model.content"
-        label="Content"
-        maxlength="1000"
-        counter
-        :rules="[rules.required, rules.contentCounter]"
-        clearable
-      ></v-textarea>
-    </div>
-    <div class="button-container">
-      <div v-if="isEdit">
-        <v-btn
-          class="btn"
-          color="blue"
-          :disabled="!model.title || !model.content"
-          @click="save"
-          >Save</v-btn
-        >
-        <v-btn class="btn" color="#ff6347" @click="cancel">Cancel</v-btn>
+  <v-main>
+    <div class="field-container" @click="postClicked(postId)">
+      <div v-if="!isEdit">Create New</div>
+      <div class="mt-5">
+        <v-text-field
+          v-model="model.title"
+          label="Title"
+          maxlength="255"
+          counter
+          :rules="[rules.required, rules.titleCounter]"
+          clearable
+        ></v-text-field>
       </div>
-      <div v-else>
-        <v-btn
-          class="btn"
-          color="blue"
-          :disabled="!model.title || !model.content"
-          @click="publish"
-          >Publish</v-btn
-        >
+      <div class="col-md-12">
+        <v-textarea
+          v-model="model.content"
+          label="Content"
+          maxlength="1000"
+          counter
+          :rules="[rules.required, rules.contentCounter]"
+          clearable
+        ></v-textarea>
+      </div>
+      <div class="button-container">
+        <div v-if="isEdit">
+          <v-btn
+            class="btn"
+            color="blue"
+            :disabled="!model.title || !model.content"
+            @click="save"
+            >Save</v-btn
+          >
+          <v-btn class="btn" color="#ff6347" @click="cancel">Cancel</v-btn>
+        </div>
+        <div v-else>
+          <v-btn
+            class="btn"
+            color="blue"
+            :disabled="!model.title || !model.content"
+            @click="publish"
+            >Publish</v-btn
+          >
+        </div>
       </div>
     </div>
-  </div>
+  </v-main>
 </template>
 
 <script>
@@ -140,7 +142,7 @@ export default {
   letter-spacing: 0.01rem;
   font-size: 1rem;
   margin-top: 5%;
-  // width: 70%;
+  width: 70%;
 }
 
 .button-container {
@@ -153,4 +155,10 @@ export default {
   margin-left: 20px;
   color: #fff;
 }
+
+::v-deep .v-main__wrap{
+  display: flex;
+  justify-content: center;
+}
+
 </style>

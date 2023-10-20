@@ -1,31 +1,32 @@
 <template>
-  <div
-    :class="!showButton ? 'blog-container' : 'blog-view'"
-    @click="postClicked(blog.id)"
-  >
-    <div v-if="!editMode">
-      <div class="blog-image-container col-md-12">
-        <img class="img" :src="image" />
-      </div>
-      <div class="blog-title col-md-12">{{ blog.title }}</div>
-      <div v-if="!showButton" class="blog-content-container col-md-12">
-        <div class="blog-content">
-          {{ blog.content | truncate(280, "...") }}
-          <span style="color: red">Read More</span>
+  <v-main>
+    <div class="blog-container-parent">
+      <div
+        :class="!showButton ? 'blog-container' : 'blog-view'"
+        @click="postClicked(blog.id)"
+      >
+        <div v-if="!editMode">
+          <div class="col-md-12 button-container" v-if="showButton">
+            <button type="button" @click="editPost">
+              <v-icon large>edit</v-icon>
+            </button>
+            <button type="button" @click="deletePost" class="ml-8">
+              <v-icon large>delete</v-icon>
+            </button>
+          </div>
+          <div class="blog-title col-md-12">{{ blog.title }}</div>
+          <div v-if="!showButton" class="blog-content-container col-md-12">
+            <div class="blog-content">
+              {{ blog.content | truncate(280, "...") }}
+              <span style="color: red">Read More</span>
+            </div>
+          </div>
+          <div v-else class="blog-content-container col-md-12">
+            <div class="blog-content">
+              {{ blog.content }}
+            </div>
+          </div>
         </div>
-      </div>
-      <div v-else class="blog-content-container col-md-12">
-        <div class="blog-content">
-          {{ blog.content }}
-        </div>
-      </div>
-      <div class="col-md-12 button-container" v-if="showButton">
-        <button type="button" @click="editPost">
-          <v-icon large>edit</v-icon>
-        </button>
-        <button type="button" @click="deletePost" class="ml-8">
-          <v-icon large>delete</v-icon>
-        </button>
       </div>
     </div>
     <div class="child-component-container" v-if="editMode">
@@ -36,7 +37,7 @@
         @edit-post="editPost()"
       />
     </div>
-  </div>
+  </v-main>
 </template>
 
 <script>
@@ -138,17 +139,15 @@ export default {
   text-align: left;
   letter-spacing: 0.01rem;
   font-size: 1rem;
-  margin-top: 2%;
   border: 1px solid rgb(77, 73, 73);
   cursor: pointer;
 }
 
 .blog-view {
-  width: 70%;
+  width: 80%;
 }
 
 .blog-image-container {
-  position: relative;
   display: flex;
   justify-content: center;
 }
@@ -177,19 +176,20 @@ export default {
 }
 
 .button-container {
-  margin: 20px 0px 10px;
+  margin-top: 2%;
+  background-color: grey;
   display: flex;
   justify-content: right;
 }
 
-// .child-component-container{
-//   display: flex;
-//   justify-content: center;
-// }
-
 .img {
   width: 100%;
-  max-width: 800px;
+  max-width: 600px;
   margin: 0 auto;
+}
+
+.blog-container-parent {
+  display: flex;
+  justify-content: center;
 }
 </style>

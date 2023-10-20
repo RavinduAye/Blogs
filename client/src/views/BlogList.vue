@@ -1,31 +1,24 @@
 <template>
-  <v-app>
-    <v-main>
-      <carousel-slide />
-    </v-main>
-    <blog-list/>
-  </v-app>
+  <div class="container">
+    <v-row>
+      <v-col v-for="blog in blogs" v-bind:key="blog.id" cols="4">
+        <blog-post-view :block="blog" :showButton="false" />
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script>
-// import BlogPost from "../components/BlogPost.vue";
-// import BlogPostView from "../components/BlogPostView.vue";
-import CarouselSlide from "../components/CarouselSlide.vue";
 import axios from "axios";
-import BlogList from '../views/BlogList.vue';
+import BlogPostView from "./BlogPostView.vue";
 
 export default {
-  name: "HomePage",
-
+  title: "BlogList",
   components: {
-    // BlogPostView,
-    CarouselSlide,
-    // BlogPost,
-    BlogList,
+    BlogPostView,
   },
-
   data: () => ({
-    currentItem: "home",
+    loading: false,
     auth: {
       user: 1,
     },
@@ -77,8 +70,6 @@ export default {
     ],
   }),
 
-  mounted() {},
-
   methods: {
     getBlogs() {
       if (this.auth.user) {
@@ -105,6 +96,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
