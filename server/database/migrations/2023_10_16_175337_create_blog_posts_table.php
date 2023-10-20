@@ -16,8 +16,10 @@ class CreateBlogPostsTable extends Migration
         Schema::create('blog_posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('content')->nullable();
+            $table->string('content',1000);
             $table->date('published_date');
+            $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
 
         });
