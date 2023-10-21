@@ -1,4 +1,0 @@
-appName : Blogs
-server:
-    host: http://blog.test
-    redirectUri: http://localhost:8080

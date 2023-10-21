@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import auth from '../../auth'
+import auth from "../../auth";
 
 export default {
   title: "LoginPage",
@@ -57,8 +57,9 @@ export default {
         email: this.model.email,
         password: this.model.password,
       };
-      
-      auth.login(data)
+
+      auth
+        .login(data)
         .then(() => {
           console.log("logged successfully");
           this.$router.push({

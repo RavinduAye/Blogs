@@ -2,12 +2,12 @@
   <v-app-bar app dark class="app-bar">
     <template>
       <div>
-        <div v-if="auth.user">
-          <v-btn class="btn" href="/home">Home</v-btn>
-          <v-btn class="btn" href="/new_post">Write</v-btn>
+        <div v-if="user">
+          <v-btn class="btn" @click="$router.push({ name : 'Home'})">Home</v-btn>
+          <v-btn class="btn" @click="$router.push({ name : 'New Blog'})">Write</v-btn>
         </div>
         <div v-else>
-          <v-btn class="btn" href="/home">Public Posts</v-btn>
+          <v-btn class="btn" href="/">Public Posts</v-btn>
           <v-btn class="btn" href="/login">Sign In</v-btn>
         </div>
       </div>
@@ -16,61 +16,30 @@
 </template>
 
 <script>
+
 export default {
   name: "AppBar",
   data: () => ({
     currentItem: "home",
-    auth: {
-      user: null,
-    },
-    blogs: [
-      {
-        id: 1,
-        title: "Pre-Conference Session: Don't Start a Church, Plant One!",
-        content: "Church planting isn't easy",
-      },
-      {
-        id: 2,
-        name: "2",
-      },
-      {
-        id: 3,
-        title: "Pre-Conference Session: Don't Start a Church, Plant One!",
-        content: "Church planting isn't easy",
-      },
-      {
-        id: 4,
-        title: "Pre-Conference Session: Don't Start a Church, Plant One!",
-        content: "Church planting isn't easy",
-      },
-      {
-        id: 5,
-        title: "Pre-Conference Session: Don't Start a Church, Plant One!",
-        content: "Church planting isn't easy",
-      },
-      {
-        id: 6,
-        title: "Pre-Conference Session: Don't Start a Church, Plant One!",
-        content: "Church planting isn't easy",
-      },
-      {
-        id: 7,
-        title: "Pre-Conference Session: Don't Start a Church, Plant One!",
-        content: "Church planting isn't easy",
-      },
-      {
-        id: 8,
-        title: "Pre-Conference Session: Don't Start a Church, Plant One!",
-        content: "Church planting isn't easy",
-      },
-      {
-        id: 9,
-        title: "Pre-Conference Session: Don't Start a Church, Plant One!",
-        content: "Church planting isn't easy",
-      },
-    ],
+    blogs: [],
+    user: null
   }),
+
+  created(){
+    window.addEventListener('user-logged', this.setUser)
+  },
+
+  methods: {
+    setUser(event){
+      this.user = event.detail
+    }
+  },
+
+  destroyed(){
+    window.removeEventListener('user-logged', this.setUser)
+  }
 };
+
 </script>
 
 <style lang="scss" scoped>

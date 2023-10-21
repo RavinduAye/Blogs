@@ -1,10 +1,10 @@
 <template>
   <v-main>
-    <div class="field-container" @click="postClicked(postId)">
+    <div class="field-container">
       <div v-if="!isEdit" class="titile-heading">Create New</div>
       <div class="mt-5">
         <v-text-field
-          v-model="model.title"
+          v-model="blog.title"
           label="Title"
           maxlength="255"
           counter
@@ -14,7 +14,7 @@
       </div>
       <div>
         <v-textarea
-          v-model="model.content"
+          v-model="blog.content"
           label="Content"
           maxlength="1000"
           counter
@@ -26,7 +26,7 @@
         <div v-if="isEdit">
           <v-btn
             class="btn"
-            :disabled="!model.title || !model.content"
+            :disabled="!blog.title || !blog.content"
             @click="save"
             >Save</v-btn
           >
@@ -37,8 +37,8 @@
         <div v-else>
           <v-btn
             class="btn"
-            :disabled="!model.title || !model.content"
-            @click="publish"
+            :disabled="!blog.title || !blog.content"
+            @click="publish()"
             >Publish</v-btn
           >
         </div>
@@ -49,15 +49,15 @@
 
 <script>
 import axios from "axios";
+import conf from "../conf";
+import auth from "../auth";
 
 export default {
   title: "BlogPost",
   data: () => ({
-    blog: {
-      image: require(`../assets/blogImage4.jpg`),
-    },
     loading: false,
-    model: {
+    blog: {
+      id: null,
       title: "",
       content: "",
     },
@@ -84,22 +84,21 @@ export default {
   },
 
   mounted() {
-    this.model.title = this.title;
-    this.model.content = this.content;
+    this.blog.id = this.$route.params.id;
+    this.blog.title = this.title;
+    this.blog.content = this.content;
   },
 
   methods: {
-    postClicked(id) {
-      console.log(id);
-    },
-
     publish() {
       const data = {
-        title: this.model.title,
-        content: this.model.content,
+        title: this.blog.title,
+        content: this.blog.content,
       };
       axios
-        .post(`/api/blog`, data)
+        .post(conf.server.host + `/api/blogs`, data, {
+          headers: { Authorization: auth.getAuthToken() },
+        })
         .then(() => {
           console.log("Blog published successfully");
         })
@@ -110,11 +109,13 @@ export default {
 
     save() {
       const data = {
-        title: this.model.title,
-        content: this.model.content,
+        title: this.blog.title,
+        content: this.blog.content,
       };
       axios
-        .put(`/blog/${this.blog.id}`, data)
+        .put(conf.server.host + `/api/blogs/${this.blog.id}`, data, {
+          headers: { Authorization: auth.getAuthToken() },
+        })
         .then(() => {
           console.log("Blog updated successfully");
         })

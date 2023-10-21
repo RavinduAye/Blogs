@@ -2,94 +2,39 @@
   <div class="container">
     <v-row>
       <v-col v-for="blog in blogs" v-bind:key="blog.id" cols="4">
-        <blog-post-view :block="blog" :showButton="false" />
+        <blog-mini-component :blogPost="blog" />
       </v-col>
     </v-row>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import BlogPostView from "./BlogPostView.vue";
+import BlogMiniComponent from "./BlogMiniComponent.vue";
+import conf from "../conf";
+import auth from "../auth";
 
 export default {
   title: "BlogList",
   components: {
-    BlogPostView,
+    BlogMiniComponent,
   },
   data: () => ({
     loading: false,
-    auth: {
-      user: 1,
-    },
-    blogs: [
-      {
-        id: 1,
-        title: "Pre-Conference Session: Don't Start a Church, Plant One!",
-        content: "Church planting isn't easy",
-      },
-      {
-        id: 2,
-        name: "2",
-      },
-      {
-        id: 3,
-        title: "Pre-Conference Session: Don't Start a Church, Plant One!",
-        content: "Church planting isn't easy",
-      },
-      {
-        id: 4,
-        title: "Pre-Conference Session: Don't Start a Church, Plant One!",
-        content: "Church planting isn't easy",
-      },
-      {
-        id: 5,
-        title: "Pre-Conference Session: Don't Start a Church, Plant One!",
-        content: "Church planting isn't easy",
-      },
-      {
-        id: 6,
-        title: "Pre-Conference Session: Don't Start a Church, Plant One!",
-        content: "Church planting isn't easy",
-      },
-      {
-        id: 7,
-        title: "Pre-Conference Session: Don't Start a Church, Plant One!",
-        content: "Church planting isn't easy",
-      },
-      {
-        id: 8,
-        title: "Pre-Conference Session: Don't Start a Church, Plant One!",
-        content: "Church planting isn't easy",
-      },
-      {
-        id: 9,
-        title: "Pre-Conference Session: Don't Start a Church, Plant One!",
-        content: "Church planting isn't easy",
-      },
-    ],
+    blogs: [],
   }),
 
+  mounted() {
+    this.getBlogs();
+  },
+
   methods: {
-    getBlogs() {
-      if (this.auth.user) {
-        axios
-          .get(`/api/owner/blog/${this.auth.user.id}`)
-          .then((response) => {
-            this.blogs = response.data.blogs;
-          })
-          .catch(() => {
-            console.log("Something went wrong");
-          });
+    async getBlogs() {
+      if (auth.user.id) {
+        this.blogs = auth.user.blogs;
       } else {
-        axios
-          .get(`/api/blogs`)
-          .then((response) => {
-            this.blogs = response.data.blogs;
-          })
-          .catch(() => {
-            console.log("Something went wrong");
-          });
+        const response = await fetch(conf.server.host + `/api/blogs`);
+        const jsonResponse = await response.json();
+        this.blogs = jsonResponse.blogs;
       }
     },
   },
