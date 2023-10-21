@@ -20,6 +20,7 @@ class BlogController extends Controller
         $user = Auth::user();
         $validatedRequest = $request->validated();
         $validatedRequest['created_by'] = $user->id;
+
         $blog = $this->blogRepository->create($validatedRequest);
 
         if ($blog) {
@@ -81,17 +82,6 @@ class BlogController extends Controller
                 'message' => 'Blog deletion failed',
             ], 400);
         }
-    }
-
-    public function getOwnerBlogs(Request $request): JsonResponse
-    {
-        $userId = $request->route('user_id');
-        $blogs = $this->blogRepository->getOwnerBlogs($userId);
-
-        return response()->json([
-            'blogs' => $blogs,
-        ]);
-
     }
 
     public function getPublicBlogs(Request $request): JsonResponse
