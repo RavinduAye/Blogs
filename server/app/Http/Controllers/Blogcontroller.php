@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\Blog\BlogRepositoryInterface;
 use App\Http\Requests\BlogRequest;
-
+use App\Repositories\Blog\BlogRepositoryInterface;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -19,14 +18,14 @@ class BlogController extends Controller
         $validatedRequest = $request->validated();
         $blog = $this->blogRepository->create($validatedRequest);
 
-        if($blog){
+        if ($blog) {
             return response()->json([
                 'message' => 'Blog created successfully',
-                'blog' => $blog
+                'blog' => $blog,
             ], 200);
         } else {
             return response()->json([
-                'message' => 'Blog creation failed'
+                'message' => 'Blog creation failed',
             ], 400);
         }
     }
@@ -37,21 +36,21 @@ class BlogController extends Controller
         $postId = $request->route('post_id');
         $blog = $this->blogRepository->getBlogPost($postId);
 
-        if(!$blog){
+        if (!$blog) {
             return response()->json([
-                'message' => 'Blog not found'
+                'message' => 'Blog not found',
             ], 404);
         }
-        
+
         $blogUpdated = $this->blogRepository->update($postId, $validatedRequest);
 
-        if($blogUpdated){
+        if ($blogUpdated) {
             return response()->json([
-                'message' => 'Blog updated successfully'
+                'message' => 'Blog updated successfully',
             ], 200);
         } else {
             return response()->json([
-                'message' => 'Blog updation failed'
+                'message' => 'Blog updation failed',
             ], 400);
         }
     }
@@ -61,21 +60,21 @@ class BlogController extends Controller
         $postId = $request->route('post_id');
         $blog = $this->blogRepository->getBlogPost($postId);
 
-        if(!$blog){
+        if (!$blog) {
             return response()->json([
-                'message' => 'Blog not found'
+                'message' => 'Blog not found',
             ], 404);
         }
 
         $blogDeleted = $this->blogRepository->delete($postId);
 
-        if($blogDeleted){
+        if ($blogDeleted) {
             return response()->json([
-                'message' => 'Blog deleted successfully'
+                'message' => 'Blog deleted successfully',
             ], 200);
         } else {
             return response()->json([
-                'message' => 'Blog deletion failed'
+                'message' => 'Blog deletion failed',
             ], 400);
         }
     }
@@ -86,7 +85,7 @@ class BlogController extends Controller
         $blogs = $this->blogRepository->getOwnerBlogs($userId);
 
         return response()->json([
-            'blogs' => $blogs
+            'blogs' => $blogs,
         ]);
 
     }
@@ -96,7 +95,7 @@ class BlogController extends Controller
         $blogs = $this->blogRepository->getPublicBlogs();
 
         return response()->json([
-            'blogs' => $blogs
+            'blogs' => $blogs,
         ]);
 
     }

@@ -30,7 +30,7 @@ class EnsureIsUser
                 return $next($request);
             }
         }
-        
+
         return response()->json([
             'message' => 'User not found',
         ], 404);

@@ -7,11 +7,8 @@
       cycle
     >
       <div>
-        <v-carousel-item
-          v-for="(item, i) in items"
-          :key="i"
-        >
-         <v-img class="image-cover" :src="item.src"></v-img>
+        <v-carousel-item v-for="(item, i) in items" :key="i">
+          <v-img class="image-cover" :src="item.src"></v-img>
         </v-carousel-item>
       </div>
     </v-carousel>
@@ -28,7 +25,7 @@ export default {
       },
       {
         src: require(`../assets/blogImage4.jpg`),
-      }
+      },
     ],
   }),
 
@@ -39,8 +36,8 @@ export default {
 <style lang="scss" scoped>
 .image-cover {
   pointer-events: none;
-    object-fit: cover;
-    height: 100%;
-    width: 100%;
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
 }
 </style>

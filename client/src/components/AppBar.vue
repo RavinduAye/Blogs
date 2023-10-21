@@ -1,17 +1,14 @@
 <template>
-  <v-app-bar
-    app
-    dark
-    class="app-bar"
-  >
+  <v-app-bar app dark class="app-bar">
     <template>
-      <div class="app-bar-container">
+      <div>
         <div v-if="auth.user">
           <v-btn class="btn" href="/home">Home</v-btn>
           <v-btn class="btn" href="/new_post">Write</v-btn>
         </div>
         <div v-else>
-          <v-btn class="btn" href="/login">Sign in</v-btn>
+          <v-btn class="btn" href="/home">Public Posts</v-btn>
+          <v-btn class="btn" href="/login">Sign In</v-btn>
         </div>
       </div>
     </template>
@@ -24,7 +21,7 @@ export default {
   data: () => ({
     currentItem: "home",
     auth: {
-      user: 1,
+      user: null,
     },
     blogs: [
       {
@@ -77,10 +74,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-.btn{
-    background-color: unset !important;
-    box-shadow: none;
+.btn {
+  background-color: unset !important;
+  box-shadow: none;
 }
 
 .btn {
@@ -88,7 +84,7 @@ export default {
   background: white;
   white-space: nowrap;
   padding: 10px 22px;
-  color: linear-gradient(to right, #8e2de2, #4a00e0);;
+  color: linear-gradient(to right, #8e2de2, #4a00e0);
   font-size: 16px;
   outline: none;
   border: none;
@@ -113,5 +109,7 @@ export default {
   z-index: 10;
 }
 
-
+.logo {
+  text-align: left;
+}
 </style>

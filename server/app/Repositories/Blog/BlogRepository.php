@@ -28,7 +28,7 @@ class BlogRepository implements BlogRepositoryInterface
 
     public function getOwnerBlogs($userId)
     {
-        return BlogPost::where('created_by',$userId)->get();
+        return BlogPost::where('created_by', $userId)->get();
     }
 
     public function getPublicBlogs()

@@ -30,7 +30,9 @@
             @click="save"
             >Save</v-btn
           >
-          <v-btn class="cancel-btn" color="#ff6347" @click="cancel">Cancel</v-btn>
+          <v-btn class="cancel-btn" color="#ff6347" @click="cancel"
+            >Cancel</v-btn
+          >
         </div>
         <div v-else>
           <v-btn
@@ -46,7 +48,6 @@
 </template>
 
 <script>
-
 import axios from "axios";
 
 export default {
@@ -83,17 +84,16 @@ export default {
   },
 
   mounted() {
-      this.model.title = this.title;
-      this.model.content = this.content;
+    this.model.title = this.title;
+    this.model.content = this.content;
   },
 
   methods: {
-
-    postClicked(id){
+    postClicked(id) {
       console.log(id);
     },
 
-    publish(){
+    publish() {
       const data = {
         title: this.model.title,
         content: this.model.content,
@@ -148,7 +148,7 @@ export default {
   display: flex;
   justify-content: right;
 }
-.cancel-btn{
+.cancel-btn {
   margin-left: 20px;
   color: #fff;
   width: 150px;
@@ -163,18 +163,15 @@ export default {
   background: linear-gradient(to right, #8e2de2, #4a00e0);
 }
 
-
-
-::v-deep .v-main__wrap{
+::v-deep .v-main__wrap {
   display: flex;
   justify-content: center;
 }
 
-.titile-heading{
+.titile-heading {
   margin-bottom: 3%;
-  color: #01BF71;
+  color: #01bf71;
   font-size: 36px;
   font-weight: 600;
 }
-
 </style>

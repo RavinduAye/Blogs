@@ -1,20 +1,19 @@
 <template>
   <div id="app">
-    <app-bar/>
+    <app-bar />
     <router-view />
   </div>
 </template>
 
 <script>
-import AppBar from './components/AppBar.vue'
+import AppBar from "./components/AppBar.vue";
 export default {
-    components: { AppBar },
-  
-}
+  components: { AppBar },
+};
 </script>
 <style lang="scss">
 #app {
-  font-family: Poppins, sans-serif;;
+  font-family: Poppins, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

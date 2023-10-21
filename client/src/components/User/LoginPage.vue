@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row>
-      <v-col class="img"  cols="6"/>
+      <v-col class="img" cols="6" />
       <v-col cols="6" class="form-container">
         <v-card class="field-container">
           <h3 class="headline">Login</h3>
@@ -20,18 +20,11 @@
             prepend-inner-icon="mdi-lock-outline"
             outlined
           ></v-text-field>
-          <button
-            class="button"
-            @click="login"
-          >
-            Log In
-          </button>
+          <button class="button" @click="login">Log In</button>
 
           <v-card-text class="text-center">
-            <div
-              class="text-decoration-none"
-            >
-              New User? 
+            <div class="text-decoration-none">
+              New User?
               <a href="/register">Sign up</a>
             </div>
           </v-card-text>
@@ -50,23 +43,20 @@ export default {
     image: require(`../../assets/blogImage4.jpg`),
     model: {
       email: null,
-      password: null
-    }
+      password: null,
+    },
   }),
 
-  methods : {
-    login(){
-      if (
-        !this.model.email ||
-        !this.model.password
-      ) {
+  methods: {
+    login() {
+      if (!this.model.email || !this.model.password) {
         return;
       }
 
       const data = {
         email: this.model.email,
-        password: this.model.password
-      }
+        password: this.model.password,
+      };
       axios
         .post(`/api/login`, data)
         .then(() => {
@@ -75,28 +65,26 @@ export default {
         .catch(() => {
           console.log("Something went wrong");
         });
-    }
-  }
+    },
+  },
 };
-
 </script>
 
 <style lang="scss" scoped>
-
-.headline{
+.headline {
   text-align: center;
   margin-bottom: 40px;
   font-size: 36px;
 }
 
-.img{
+.img {
   background: url(../../assets/blogImage4.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
 }
 
-.form-container{
+.form-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -104,14 +92,14 @@ export default {
   padding: 10px;
 }
 
-.field-container{
+.field-container {
   width: 35vw;
   box-shadow: unset !important;
 }
 
-.button{
+.button {
   border-radius: 50px;
-  background: linear-gradient(to right, #8e2de2, #4a00e0);;
+  background: linear-gradient(to right, #8e2de2, #4a00e0);
   white-space: nowrap;
   padding: 10px 22px;
   color: white;
@@ -124,5 +112,4 @@ export default {
   width: 100%;
   height: 50px;
 }
-
 </style>

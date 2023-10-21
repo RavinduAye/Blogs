@@ -2,10 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\BlogPost;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\BlogPost;
 
 class EnsureIsBlogOwner
 {
@@ -22,17 +22,17 @@ class EnsureIsBlogOwner
         $blogPostId = $request->route('post_id');
         $blogPost = BlogPost::where('id', $blogPostId)->first();
 
-        if(!$blogPost) {
+        if (!$blogPost) {
             return response()->json([
-                'message' => 'Blog post not found'
+                'message' => 'Blog post not found',
             ], 404);
         }
 
-        if($blogPost->created_by == $user->id) {
+        if ($blogPost->created_by == $user->id) {
             return $next($request);
         } else {
             return response()->json([
-                'message' => 'You are not authorized to perform this action'
+                'message' => 'You are not authorized to perform this action',
             ], 401);
         }
     }

@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Repositories\User\UserRepositoryInterface;
+
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -28,7 +29,7 @@ class UserController extends Controller
         return response()->json([
             'success' => $success,
             'message' => 'user registered successfully'],
-        200);
+            200);
     }
 
     public function login(LoginRequest $request): JsonResponse
@@ -71,6 +72,5 @@ class UserController extends Controller
     {
         return Str::lower(request('email')) . '|' . $request->ip();
     }
-
 
 }

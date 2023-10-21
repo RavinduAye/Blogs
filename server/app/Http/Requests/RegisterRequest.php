@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Contracts\Validation\Validator;
 
 class RegisterRequest extends FormRequest
 {
@@ -15,14 +15,14 @@ class RegisterRequest extends FormRequest
             'last_name' => 'required|max:150',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|min:6',
-            'confirm_password' => 'required|same:password'
+            'confirm_password' => 'required|same:password',
         ];
     }
 
     public function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([
-            'error' => $validator->errors()
+            'error' => $validator->errors(),
         ], 400));
     }
 
@@ -39,7 +39,7 @@ class RegisterRequest extends FormRequest
             'password.required' => 'Password is required.',
             'password.min' => 'Password should not be less than 6 characters.',
             'confirm_password.required' => 'Confirm password is required.',
-            'confirm_password.same' => 'Confirm password should be same as password.'
+            'confirm_password.same' => 'Confirm password should be same as password.',
         ];
     }
 }

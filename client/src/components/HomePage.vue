@@ -3,24 +3,20 @@
     <v-main>
       <carousel-slide />
     </v-main>
-    <blog-list/>
+    <blog-list />
   </v-app>
 </template>
 
 <script>
-// import BlogPost from "../components/BlogPost.vue";
-// import BlogPostView from "../components/BlogPostView.vue";
 import CarouselSlide from "../components/CarouselSlide.vue";
 import axios from "axios";
-import BlogList from '../views/BlogList.vue';
+import BlogList from "../views/BlogList.vue";
 
 export default {
   name: "HomePage",
 
   components: {
-    // BlogPostView,
     CarouselSlide,
-    // BlogPost,
     BlogList,
   },
 
@@ -104,7 +100,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-
-</style>

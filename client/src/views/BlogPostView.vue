@@ -20,7 +20,7 @@
           <div
             :class="!showButton ? 'blog-title' : 'blog-title title-background'"
           >
-            {{ blog.title | truncate(255, "...")}} 
+            {{ blog.title | truncate(255, "...") }}
           </div>
           <div v-if="!showButton" class="blog-content-container col-md-12">
             <div class="blog-content">
