@@ -28,7 +28,9 @@ Route::group(
     });
 
 // get public posts endpoint
-Route::get('/blogs', [BlogController::class, 'getPublicBlogs']);
+Route::get('/blogs', [BlogController::class, 'findAll']);
+
+Route::get('blogs/{post_id}', [BlogController::class, 'findOne']);
 
 // login and register endpoints
 Route::post('login', [UserController::class, 'login']);

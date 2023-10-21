@@ -18,7 +18,7 @@ class UserRepository implements UserRepositoryInterface
 
     public function getUser($userId)
     {
-        return User::with('blogPosts')->find($userId);
+        return User::with('blogPosts.owner:id,first_name,last_name')->find($userId);
     }
 
 }

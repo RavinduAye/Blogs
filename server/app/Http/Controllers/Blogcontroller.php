@@ -39,14 +39,7 @@ class BlogController extends Controller
     {
         $validatedRequest = $request->validated();
         $postId = $request->route('post_id');
-        $blog = $this->blogRepository->getBlogPost($postId);
-
-        if (!$blog) {
-            return response()->json([
-                'message' => 'Blog not found',
-            ], 404);
-        }
-
+        
         $blogUpdated = $this->blogRepository->update($postId, $validatedRequest);
 
         if ($blogUpdated) {
@@ -63,13 +56,6 @@ class BlogController extends Controller
     public function delete(Request $request): JsonResponse
     {
         $postId = $request->route('post_id');
-        $blog = $this->blogRepository->getBlogPost($postId);
-
-        if (!$blog) {
-            return response()->json([
-                'message' => 'Blog not found',
-            ], 404);
-        }
 
         $blogDeleted = $this->blogRepository->delete($postId);
 
@@ -84,9 +70,20 @@ class BlogController extends Controller
         }
     }
 
-    public function getPublicBlogs(Request $request): JsonResponse
+    public function findOne(Request $request): JsonResponse
     {
-        $blogs = $this->blogRepository->getPublicBlogs();
+        $postId = $request->route('post_id');
+        $blog = $this->blogRepository->findOne($postId);
+
+        return response()->json([
+            'blog' => $blog,
+        ]);
+
+    }
+
+    public function findAll(Request $request): JsonResponse
+    {
+        $blogs = $this->blogRepository->findAll();
 
         return response()->json([
             'blogs' => $blogs,

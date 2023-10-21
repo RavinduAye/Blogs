@@ -11,9 +11,9 @@ class BlogRepository implements BlogRepositoryInterface
         return BlogPost::create($blog);
     }
 
-    public function getBlogPost($postId)
+    public function findOne($postId)
     {
-        return BlogPost::find($postId);
+        return BlogPost::with(['owner:id,first_name,last_name'])->find($postId);
     }
 
     public function update($postId, $blog)
@@ -26,13 +26,8 @@ class BlogRepository implements BlogRepositoryInterface
         return BlogPost::where('id', $postId)->delete();
     }
 
-    public function getOwnerBlogs($userId)
+    public function findAll()
     {
-        return BlogPost::where('created_by', $userId)->get();
-    }
-
-    public function getPublicBlogs()
-    {
-        return BlogPost::with(['owner:id,first_name,last_name'] )->get();
+        return BlogPost::with(['owner:id,first_name,last_name'])->get();
     }
 }

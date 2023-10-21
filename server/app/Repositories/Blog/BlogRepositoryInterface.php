@@ -6,13 +6,11 @@ interface BlogRepositoryInterface
 {
     public function create($blog);
 
-    public function getBlogPost($postId);
+    public function findOne($postId);
 
     public function update($postId, $blog);
 
     public function delete($postId);
 
-    public function getOwnerBlogs($createdBy);
-
-    public function getPublicBlogs();
+    public function findAll();
 }
