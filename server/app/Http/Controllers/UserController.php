@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Repositories\User\UserRepositoryInterface;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
     protected $maxAttempts = 5;
+    use ThrottlesLogins;
 
     public function __construct(UserRepositoryInterface $userRepository)
     {
@@ -24,11 +29,10 @@ class UserController extends Controller
 
         $user = $this->userRepository->createUser($validatedRequest);
 
-        $token = $user->userRepository->createToken($user);
+        $token = $this->userRepository->createToken($user);
 
         return response()->json([
-            'success' => $success,
-            'message' => 'user registered successfully'],
+            'message' => 'User registered successfully'],
             200);
     }
 
@@ -54,12 +58,16 @@ class UserController extends Controller
             $success['first_name'] = $user->first_name;
             $success['last_name'] = $user->last_name;
             $success['email'] = $user->email;
+            return response()->json([
+                'success' => $success,
+                'message' => 'Logged in successfully.',
+            ], 200);
 
         } else {
             return response()->json([
                 'error' => 'Unauthorised',
-                'remaining_invalid_attempts' => $this->getAttempts($request)],
-                401);
+                'remaining_invalid_attempts' => $this->getAttempts($request),
+            ], 401);
         }
     }
 

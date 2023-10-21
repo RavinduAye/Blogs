@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BlogRequest;
 use App\Repositories\Blog\BlogRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\JsonResponse;
 
 class BlogController extends Controller
 {
@@ -15,7 +17,9 @@ class BlogController extends Controller
 
     public function create(BlogRequest $request): JsonResponse
     {
+        $user = Auth::user();
         $validatedRequest = $request->validated();
+        $validatedRequest['created_by'] = $user->id;
         $blog = $this->blogRepository->create($validatedRequest);
 
         if ($blog) {

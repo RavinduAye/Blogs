@@ -17,7 +17,7 @@ class CreateBlogPostsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('content',1000);
-            $table->date('published_date');
+            $table->date('published_date')->default(now());
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
