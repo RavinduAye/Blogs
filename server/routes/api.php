@@ -1,6 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,8 +15,22 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
-*/
+ */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::group(
+    ['middleware' => 'auth:api'],
+    function () {
+        Route::post('blogs', [BlogController::class, 'create']);
+        Route::group(['middleware' => 'is.blogOwner'], function () {
+            Route::put('blogs/{post_id}', [BlogController::class, 'update']);
+            Route::delete('blogs/{post_id}', [BlogController::class, 'delete']);
+        });
+    });
+
+// get posts endpoint
+Route::get('/blogs', [BlogController::class, 'findAll']);
+Route::get('blogs/{post_id}', [BlogController::class, 'findOne']);
+
+// login and register endpoints
+Route::post('login', [UserController::class, 'login']);
+Route::post('register', [UserController::class, 'register']);
