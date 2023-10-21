@@ -16,4 +16,9 @@ class UserRepository implements UserRepositoryInterface
         return $user->createToken('MyApp')->accessToken;
     }
 
+    public function getUser($userId)
+    {
+        return User::with('blogPosts')->find($userId);
+    }
+
 }

@@ -33,6 +33,6 @@ class BlogRepository implements BlogRepositoryInterface
 
     public function getPublicBlogs()
     {
-        return BlogPost::all();
+        return BlogPost::with(['owner:id,first_name,last_name'] )->get();
     }
 }

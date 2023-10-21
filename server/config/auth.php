@@ -43,7 +43,7 @@ return [
 
         
         'api' => [
-            'driver' => 'token', // Use 'token' for token-based authentication
+            'driver' => 'passport',
             'provider' => 'users',
         ],
     ],

@@ -20,12 +20,11 @@ use Illuminate\Support\Facades\Route;
 Route::group(
     ['middleware' => 'auth:api'],
     function () {
+        Route::post('blogs', [BlogController::class, 'create']);
         Route::group(['middleware' => 'is.blogOwner'], function () {
-            Route::put('blog/{post_id}', [BlogController::class, 'update']);
-            Route::delete('blog/{post_id}', [BlogController::class, 'delete']);
+            Route::put('blogs/{post_id}', [BlogController::class, 'update']);
+            Route::delete('blogs/{post_id}', [BlogController::class, 'delete']);
         });
-        Route::post('blog/new', [BlogController::class, 'create']);
-        Route::get('blogs/{user_id}', [BlogController::class, 'getOwnerBlogs'])->middleware('is.user');
     });
 
 // get public posts endpoint

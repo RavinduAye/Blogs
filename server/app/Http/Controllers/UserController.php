@@ -29,8 +29,6 @@ class UserController extends Controller
 
         $user = $this->userRepository->createUser($validatedRequest);
 
-        $token = $this->userRepository->createToken($user);
-
         return response()->json([
             'message' => 'User registered successfully'],
             200);
@@ -51,15 +49,13 @@ class UserController extends Controller
         $authStatus = Auth::attempt(['email' => $request['email'], 'password' => $request['password']]);
 
         if ($authStatus) {
-            $user = Auth::user();
+            $authUser = Auth::user();
+            $user = $this->userRepository->getUser($authUser->id);
             $this->clearLoginAttempts($request);
-            $success['token'] = $user->createToken('MyApp')->accessToken;
-            $success['id'] = $user->id;
-            $success['first_name'] = $user->first_name;
-            $success['last_name'] = $user->last_name;
-            $success['email'] = $user->email;
+            $user['token'] = $this->userRepository->createToken($authUser);
+
             return response()->json([
-                'success' => $success,
+                'success' => $user,
                 'message' => 'Logged in successfully.',
             ], 200);
 
