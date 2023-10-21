@@ -64,6 +64,7 @@
 
 <script>
 import axios from "axios";
+import conf from "../../conf";
 
 export default {
   title: "RegisterPage",
@@ -91,17 +92,20 @@ export default {
       }
 
       const data = {
-        firstName: this.model.firstName,
-        lastName: this.model.lastName,
+        first_name: this.model.firstName,
+        last_name: this.model.lastName,
         email: this.model.email,
         password: this.model.password,
-        confirmPassword: this.model.confirmPassword,
+        confirm_password: this.model.confirmPassword,
       };
 
       axios
-        .post(`/api/register`, data)
+        .post(conf.server.host + `/api/register`, data)
         .then(() => {
           console.log("Registered successfully");
+          this.$router.push({
+            name: "Login",
+          });
         })
         .catch(() => {
           console.log("Something went wrong");

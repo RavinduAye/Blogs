@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import auth from '../../auth'
 
 export default {
   title: "LoginPage",
@@ -57,10 +57,13 @@ export default {
         email: this.model.email,
         password: this.model.password,
       };
-      axios
-        .post(`/api/login`, data)
+      
+      auth.login(data)
         .then(() => {
           console.log("logged successfully");
+          this.$router.push({
+            name: "Home",
+          });
         })
         .catch(() => {
           console.log("Something went wrong");
